@@ -26,22 +26,18 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     super.initState();
     Firebase.initializeApp();
     SystemChrome.setEnabledSystemUIOverlays([]);
-    animationController =
-        AnimationController(duration: Duration(seconds: 3), vsync: this);
-    animation = Tween(begin: -1.0, end: 0.0).animate(CurvedAnimation(
-        parent: animationController, curve: Curves.fastOutSlowIn));
+    animationController = AnimationController(duration: Duration(seconds: 3), vsync: this);
+    animation =
+        Tween(begin: -1.0, end: 0.0).animate(CurvedAnimation(parent: animationController, curve: Curves.fastOutSlowIn));
 
-    delayedAnimation = Tween(begin: -1.0, end: 0.0).animate(CurvedAnimation(
-        parent: animationController,
-        curve: Interval(0.5, 1.0, curve: Curves.fastOutSlowIn)));
+    delayedAnimation = Tween(begin: -1.0, end: 0.0)
+        .animate(CurvedAnimation(parent: animationController, curve: Interval(0.5, 1.0, curve: Curves.fastOutSlowIn)));
 
-    muchDelayedAnimation = Tween(begin: -1.0, end: 0.0).animate(CurvedAnimation(
-        parent: animationController,
-        curve: Interval(0.8, 1.0, curve: Curves.fastOutSlowIn)));
+    muchDelayedAnimation = Tween(begin: -1.0, end: 0.0)
+        .animate(CurvedAnimation(parent: animationController, curve: Interval(0.8, 1.0, curve: Curves.fastOutSlowIn)));
 
-    LeftCurve = Tween(begin: -1.0, end: 0.0).animate(CurvedAnimation(
-        parent: animationController,
-        curve: Interval(0.5, 1.0, curve: Curves.easeInOut)));
+    LeftCurve = Tween(begin: -1.0, end: 0.0)
+        .animate(CurvedAnimation(parent: animationController, curve: Interval(0.5, 1.0, curve: Curves.easeInOut)));
   }
 
   @override
@@ -60,8 +56,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     return AnimatedBuilder(
       animation: animationController,
       builder: (BuildContext context, Widget child) {
-        final GlobalKey<ScaffoldState> _scaffoldKey =
-            new GlobalKey<ScaffoldState>();
+        final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
         return Scaffold(
           key: _scaffoldKey,
           drawer: Drawer(
@@ -89,15 +84,13 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Transform(
-                          transform: Matrix4.translationValues(
-                              muchDelayedAnimation.value * width, 0, 0),
+                          transform: Matrix4.translationValues(muchDelayedAnimation.value * width, 0, 0),
                           child: Bouncing(
                             onPress: () {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        Attendance(),
+                                    builder: (BuildContext context) => Attendance(),
                                   ));
                             },
                             child: DashboardCard(
@@ -107,8 +100,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                           ),
                         ),
                         Transform(
-                          transform: Matrix4.translationValues(
-                              delayedAnimation.value * width, 0, 0),
+                          transform: Matrix4.translationValues(delayedAnimation.value * width, 0, 0),
                           child: Bouncing(
                             onPress: () {},
                             child: DashboardCard(
@@ -132,15 +124,13 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Transform(
-                          transform: Matrix4.translationValues(
-                              muchDelayedAnimation.value * width, 0, 0),
+                          transform: Matrix4.translationValues(muchDelayedAnimation.value * width, 0, 0),
                           child: Bouncing(
                             onPress: () {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        ExamResult(),
+                                    builder: (BuildContext context) => ExamResult(),
                                   ));
                             },
                             child: DashboardCard(
@@ -150,8 +140,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                           ),
                         ),
                         Transform(
-                          transform: Matrix4.translationValues(
-                              delayedAnimation.value * width, 0, 0),
+                          transform: Matrix4.translationValues(delayedAnimation.value * width, 0, 0),
                           child: Bouncing(
                             onPress: () {},
                             child: DashboardCard(
@@ -165,6 +154,40 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                   ),
                 ),
               ),
+              // Padding(
+              //               //   padding: const EdgeInsets.fromLTRB(30.0, 10, 30, 10),
+              //               //   child: Container(
+              //               //     alignment: Alignment(1.0, 0),
+              //               //     child: Padding(
+              //               //       padding: const EdgeInsets.only(top: 10.0, right: 20.0),
+              //               //       child: Row(
+              //               //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //               //         children: [
+              //               //           Transform(
+              //               //             transform: Matrix4.translationValues(muchDelayedAnimation.value * width, 0, 0),
+              //               //             child: Bouncing(
+              //               //               onPress: () {},
+              //               //               child: DashboardCard(
+              //               //                 name: "Library",
+              //               //                 imgpath: "library.png",
+              //               //               ),
+              //               //             ),
+              //               //           ),
+              //               //           Transform(
+              //               //             transform: Matrix4.translationValues(delayedAnimation.value * width, 0, 0),
+              //               //             child: Bouncing(
+              //               //               onPress: () {},
+              //               //               child: DashboardCard(
+              //               //                 name: "Track Bus",
+              //               //                 imgpath: "bus.png",
+              //               //               ),
+              //               //             ),
+              //               //           ),
+              //               //         ],
+              //               //       ),
+              //               //     ),
+              //               //   ),
+              //               // ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(30.0, 10, 30, 10),
                 child: Container(
@@ -174,63 +197,24 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        // Transform(
+                        //   transform: Matrix4.translationValues(muchDelayedAnimation.value * width, 0, 0),
+                        //   child: Bouncing(
+                        //     onPress: () {},
+                        //     child: DashboardCard(
+                        //       name: "Activity",
+                        //       imgpath: "activity.png",
+                        //     ),
+                        //   ),
+                        // ),
                         Transform(
-                          transform: Matrix4.translationValues(
-                              muchDelayedAnimation.value * width, 0, 0),
-                          child: Bouncing(
-                            onPress: () {},
-                            child: DashboardCard(
-                              name: "Library",
-                              imgpath: "library.png",
-                            ),
-                          ),
-                        ),
-                        Transform(
-                          transform: Matrix4.translationValues(
-                              delayedAnimation.value * width, 0, 0),
-                          child: Bouncing(
-                            onPress: () {},
-                            child: DashboardCard(
-                              name: "Track Bus",
-                              imgpath: "bus.png",
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(30.0, 10, 30, 10),
-                child: Container(
-                  alignment: Alignment(1.0, 0),
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 10.0, right: 20.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Transform(
-                          transform: Matrix4.translationValues(
-                              muchDelayedAnimation.value * width, 0, 0),
-                          child: Bouncing(
-                            onPress: () {},
-                            child: DashboardCard(
-                              name: "Activity",
-                              imgpath: "activity.png",
-                            ),
-                          ),
-                        ),
-                        Transform(
-                          transform: Matrix4.translationValues(
-                              delayedAnimation.value * width, 0, 0),
+                          transform: Matrix4.translationValues(delayedAnimation.value * width, 0, 0),
                           child: Bouncing(
                             onPress: () {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        LeaveApply(),
+                                    builder: (BuildContext context) => LeaveApply(),
                                   ));
                             },
                             child: DashboardCard(

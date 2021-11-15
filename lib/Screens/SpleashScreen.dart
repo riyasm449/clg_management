@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:school_management/Screens/LoginPage.dart';
 
@@ -12,28 +11,45 @@ class SpleashScreen extends StatefulWidget {
 
 class _SpleashScreenState extends State<SpleashScreen> {
   @override
-  @override
   void initState() {
     Firebase.initializeApp();
 
-    Timer(Duration(seconds: 8), start);
+    Timer(Duration(seconds: 3), start);
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         height: double.infinity,
         width: double.infinity,
-        child: Center(
-          child: Container(
-            height: MediaQuery.of(context).size.height * 0.27,
-            width: MediaQuery.of(context).size.width * 0.35,
-            child: FlareActor(
-              "assets/school spleash.flr",
-              animation: "start",
-              fit: BoxFit.fill,
-            ),
-          ),
+        color: Colors.black,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Spacer(),
+            Container(width: MediaQuery.of(context).size.width * 0.7, child: Image.asset('assets/logo.png')),
+            Padding(
+                padding: const EdgeInsets.all(15),
+                child: Text(
+                  "Student's Corner",
+                  style: TextStyle(color: Colors.blueGrey.withOpacity(.6), fontSize: 25.0, fontWeight: FontWeight.bold),
+                )),
+            Padding(
+                padding: const EdgeInsets.all(15),
+                child: Text(
+                  "Please wait loading...",
+                  style: TextStyle(color: Colors.white.withOpacity(.3), fontSize: 14, fontWeight: FontWeight.bold),
+                )),
+            Spacer(),
+            Padding(
+                padding: const EdgeInsets.fromLTRB(20, 20, 20, 30),
+                child: Text(
+                  "By Harshini & Sasimeena",
+                  style: TextStyle(color: Colors.white.withOpacity(.8), fontSize: 18, fontWeight: FontWeight.bold),
+                )),
+            // Spacer(),
+          ],
         ),
       ),
     );

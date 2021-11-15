@@ -5,8 +5,7 @@ class UserDetailCard extends StatefulWidget {
   _UserDetailCardState createState() => _UserDetailCardState();
 }
 
-class _UserDetailCardState extends State<UserDetailCard>
-    with SingleTickerProviderStateMixin {
+class _UserDetailCardState extends State<UserDetailCard> with SingleTickerProviderStateMixin {
   Animation animation, delayedAnimation, muchDelayedAnimation, LeftCurve;
   AnimationController animationController;
 
@@ -15,25 +14,24 @@ class _UserDetailCardState extends State<UserDetailCard>
     // TODO: implement initState
     super.initState();
 
-    animationController =
-        AnimationController(duration: Duration(seconds: 3), vsync: this);
-    animation = Tween(begin: -1.0, end: 0.0).animate(CurvedAnimation(
-        parent: animationController, curve: Curves.fastOutSlowIn));
+    animationController = AnimationController(duration: Duration(seconds: 3), vsync: this);
+    animation =
+        Tween(begin: -1.0, end: 0.0).animate(CurvedAnimation(parent: animationController, curve: Curves.fastOutSlowIn));
 
-    delayedAnimation = Tween(begin: 1.0, end: 0.0).animate(CurvedAnimation(
-        parent: animationController,
-        curve: Interval(0.2, 0.5, curve: Curves.fastOutSlowIn)));
+    delayedAnimation = Tween(begin: 1.0, end: 0.0)
+        .animate(CurvedAnimation(parent: animationController, curve: Interval(0.2, 0.5, curve: Curves.fastOutSlowIn)));
 
-    muchDelayedAnimation = Tween(begin: -1.0, end: 0.0).animate(CurvedAnimation(
-        parent: animationController,
-        curve: Interval(0.3, 0.5, curve: Curves.fastOutSlowIn)));
+    muchDelayedAnimation = Tween(begin: -1.0, end: 0.0)
+        .animate(CurvedAnimation(parent: animationController, curve: Interval(0.3, 0.5, curve: Curves.fastOutSlowIn)));
   }
- @override
+
+  @override
   void dispose() {
     // TODO: implement dispose
     animationController.dispose();
     super.dispose();
   }
+
   Widget build(BuildContext context) {
     animationController.forward();
     final double width = MediaQuery.of(context).size.width;
@@ -49,7 +47,7 @@ class _UserDetailCardState extends State<UserDetailCard>
               padding: const EdgeInsets.only(top: 10.0, right: 0.0),
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.blue,
+                  color: Colors.green,
                   borderRadius: BorderRadius.circular(5),
                 ),
                 height: height * 0.17,
@@ -63,8 +61,7 @@ class _UserDetailCardState extends State<UserDetailCard>
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Transform(
-                            transform: Matrix4.translationValues(
-                                muchDelayedAnimation.value * width, 0, 0),
+                            transform: Matrix4.translationValues(muchDelayedAnimation.value * width, 0, 0),
                             child: Center(
                               child: CircleAvatar(
                                 radius: 28,
@@ -73,8 +70,7 @@ class _UserDetailCardState extends State<UserDetailCard>
                             ),
                           ),
                           Transform(
-                            transform: Matrix4.translationValues(
-                                delayedAnimation.value * width, 0, 0),
+                            transform: Matrix4.translationValues(delayedAnimation.value * width, 0, 0),
                             child: Padding(
                               padding: const EdgeInsets.only(left: 15.0),
                               child: Column(
@@ -89,7 +85,7 @@ class _UserDetailCardState extends State<UserDetailCard>
                                         borderRadius: BorderRadius.circular(10),
                                       ),
                                       child: Text(
-                                        "17BCM011",
+                                        "18CS008",
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 13,
@@ -101,7 +97,7 @@ class _UserDetailCardState extends State<UserDetailCard>
                                   Padding(
                                     padding: const EdgeInsets.only(top: 10.0),
                                     child: Text(
-                                      "Deepakkumar",
+                                      "Harshini ",
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 21,
@@ -112,11 +108,10 @@ class _UserDetailCardState extends State<UserDetailCard>
                                   Padding(
                                     padding: const EdgeInsets.only(top: 8.0),
                                     child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          "Standard: 12",
+                                          "Year: 04",
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             color: Colors.white,
@@ -126,7 +121,7 @@ class _UserDetailCardState extends State<UserDetailCard>
                                           width: 50,
                                         ),
                                         Text(
-                                          "Section: B",
+                                          "Dept: CSE",
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             color: Colors.white,

@@ -2,7 +2,7 @@
     package="com.example.school_management">
     
    <application
-        android:label="school_management"
+        android:label="College Management"
         android:icon="@mipmap/ic_launcher">
        
         <activity
