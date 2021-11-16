@@ -67,7 +67,7 @@ class _MainDrawerState extends State<MainDrawer> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (BuildContext context) => Attendance(),
+                builder: (BuildContext context) => AttendancePage(),
               ),
             );
           },

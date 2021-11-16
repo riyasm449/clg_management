@@ -4,11 +4,11 @@ import 'package:randomizer/randomizer.dart';
 class SubjectCard extends StatelessWidget {
   Randomizer randomcolor = Randomizer();
   final String subjectname;
-  final String chapter;
-  final String date;
-  final String time;
-  final String grade;
-  final String mark;
+  String chapter;
+  String date;
+  String time;
+  String grade;
+  int mark;
 
   SubjectCard({Key key, this.subjectname, this.chapter, this.date, this.time, this.grade, this.mark}) : super(key: key);
   @override
@@ -16,16 +16,13 @@ class SubjectCard extends StatelessWidget {
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
     return Container(
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(7),
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black38,
-              offset: Offset(0, 2),
-              spreadRadius: 1,
-            ),
-          ]),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(7), color: Colors.white, boxShadow: [
+        BoxShadow(
+          color: Colors.black38,
+          offset: Offset(0, 2),
+          spreadRadius: 1,
+        ),
+      ]),
       child: Padding(
         padding: const EdgeInsets.symmetric(
           vertical: 10,
@@ -54,7 +51,7 @@ class SubjectCard extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 8.0),
                       child: Text(
-                        "${subjectname}",
+                        subjectname ?? "",
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -62,7 +59,7 @@ class SubjectCard extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      "${chapter} chapters",
+                      chapter != null ? "${chapter} chapters" : "",
                       style: TextStyle(
                         fontSize: 12,
                       ),
@@ -77,7 +74,7 @@ class SubjectCard extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8.0),
                   child: Text(
-                    "${date}",
+                    date ?? "",
                     style: TextStyle(
                       fontSize: 12,
                     ),
@@ -86,7 +83,7 @@ class SubjectCard extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8.0),
                   child: Text(
-                    "${time}",
+                    time ?? "",
                     style: TextStyle(
                       fontSize: 12,
                     ),
@@ -96,7 +93,7 @@ class SubjectCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Marks:${mark}",
+                      mark != null ? "Marks:${mark}" : "",
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.bold,
@@ -106,7 +103,7 @@ class SubjectCard extends StatelessWidget {
                       width: 5,
                     ),
                     Text(
-                      "Grade:${grade}",
+                      grade != null ? "Grade:${grade}" : "",
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.bold,

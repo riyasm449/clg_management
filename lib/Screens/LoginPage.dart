@@ -1,11 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fzregex/utils/fzregex.dart';
 import 'package:fzregex/utils/pattern.dart';
+import 'package:provider/provider.dart';
 import 'package:school_management/Screens/home.dart';
 import 'package:school_management/Widgets/BouncingButton.dart';
+import 'package:school_management/providers/user.dart';
 import 'package:school_management/services/UserModel.dart';
 
 import 'ForgetPasseord.dart';
@@ -27,8 +28,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
   @override
   void initState() {
     // TODO: implement initState
-    WidgetsFlutterBinding.ensureInitialized();
-    Firebase.initializeApp();
+
     super.initState();
     animationController = AnimationController(duration: Duration(seconds: 3), vsync: this);
     animation =
@@ -63,10 +63,11 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
   String _email;
   String user1;
   FirebaseAuth _auth = FirebaseAuth.instance;
+  UserProvider userProvider;
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
-
+    userProvider = Provider.of<UserProvider>(context);
     animationController.forward();
     return AnimatedBuilder(
       animation: animationController,
@@ -240,39 +241,36 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
                     child: Column(
                       children: <Widget>[
                         Bouncing(
-                          onPress: () {
-                            // if (_formkey.currentState.validate()) {
-                            //   _formkey.currentState.save();
-                            /*try {
-                                final FirebaseUser user =
-                                    (await _auth.signInWithEmailAndPassword(
+                          onPress: () async {
+                            if (_formkey.currentState.validate()) {
+                              _formkey.currentState.save();
+                              try {
+                                final user = (await _auth.signInWithEmailAndPassword(
                                   email: _email,
                                   password: _pass,
                                 ))
-                                        .user;
-                                dynamic userinfo = _auth.currentUser;
-                                return _userfromfirebase(userinfo);
+                                    .user;
+                                await userProvider.setUser(_auth.currentUser.uid);
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (BuildContext context) => Home(),
+                                    ));
                               } catch (e) {
-                                if (e.code == 'user-not-found') {
-                                  print("user not found");
-                                } else if (e.code == 'wrong-password') {
-                                  print("wrong password");
-                                } else {
-                                  print("check internet connection!");
-                                }
+                                // if (e.code == 'user-not-found') {
+                                print("error===================");
+                                // } else if (e.code == 'wrong-password') {
+                                //   print("wrong password");
+                                // } else {
+                                //   print("check internet connection!");
+                                // }
+                                print(e);
                               }
                             } else {
                               setState(() {
                                 _autoValidate = true;
                               });
-                            }*/
-
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (BuildContext context) => Home(),
-                                ));
-                            // }
+                            }
                           },
                           child: MaterialButton(
                             onPressed: () {},

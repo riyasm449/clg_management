@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:school_management/Widgets/AppBar.dart';
+import 'package:school_management/providers/user.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -8,8 +10,10 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  UserProvider userProvider;
   @override
   Widget build(BuildContext context) {
+    userProvider = Provider.of<UserProvider>(context);
     return Scaffold(
       appBar: CommonAppBar(
         menuenabled: true,
@@ -33,20 +37,20 @@ class _ProfilePageState extends State<ProfilePage> {
           Padding(
             padding: const EdgeInsets.all(15),
             child: Text(
-              "Name: Harshini",
+              "Name: ${userProvider.user.name}",
               style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
             ),
           ),
           Text(
-            "ID: 18CS008",
+            "ID: ${userProvider.user.id}",
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           Text(
-            "Year: 04",
+            "Year: ${userProvider.user.year}",
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           Text(
-            "Department: CSE",
+            "Department: ${userProvider.user.dept}",
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ],

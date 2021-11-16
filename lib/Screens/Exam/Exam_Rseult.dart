@@ -1,10 +1,10 @@
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:randomizer/randomizer.dart';
 import 'package:school_management/Widgets/AppBar.dart';
-import 'package:school_management/Widgets/BouncingButton.dart';
 import 'package:school_management/Widgets/Exams/SubjectCard.dart';
 import 'package:school_management/Widgets/MainDrawer.dart';
+import 'package:school_management/providers/user.dart';
 
 class ExamResult extends StatefulWidget {
   @override
@@ -15,6 +15,7 @@ class _ExamResultState extends State<ExamResult> with SingleTickerProviderStateM
   Animation animation, delayedAnimation, muchDelayedAnimation, LeftCurve;
   AnimationController animationController;
   Randomizer randomcolor = Randomizer();
+  UserProvider userProvider;
   @override
   void initState() {
     // TODO: implement initState
@@ -41,6 +42,7 @@ class _ExamResultState extends State<ExamResult> with SingleTickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
+    userProvider = Provider.of<UserProvider>(context);
     animationController.forward();
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
@@ -53,7 +55,7 @@ class _ExamResultState extends State<ExamResult> with SingleTickerProviderStateM
               appBar: CommonAppBar(
                 menuenabled: true,
                 notificationenabled: false,
-                title: "Exams",
+                title: "Results",
                 ontap: () {
                   _scaffoldKey.currentState.openDrawer();
                 },
@@ -104,97 +106,23 @@ class _ExamResultState extends State<ExamResult> with SingleTickerProviderStateM
                         ),
                       ),
                       SizedBox(
-                        height: height * 0.02,
-                      ),
-                      Transform(
-                        transform: Matrix4.translationValues(muchDelayedAnimation.value * width, 0, 0),
-                        child: DropdownSearch<String>(
-                          validator: (v) => v == null ? "Please Select" : null,
-                          hint: "Please Select",
-                          mode: Mode.MENU,
-                          showSelectedItem: true,
-                          items: [
-                            "Quarterly",
-                            "half yearly",
-                            "First Revision",
-                            'Second Revision',
-                            'Third Revision',
-                            'Annual Exam'
-                          ],
-                          showClearButton: false,
-                          onChanged: (value) {},
-                        ),
-                      ),
-                      SizedBox(
                         height: height * 0.05,
                       ),
-                      Transform(
-                        transform: Matrix4.translationValues(muchDelayedAnimation.value * width, 0, 0),
-                        child: SubjectCard(
-                          subjectname: "Python Programming",
-                          chapter: "1-5",
-                          date: "12/12/2020",
-                          grade: "A+",
-                          mark: "90",
-                          time: "9.00Am-10AM",
-                        ),
-                      ),
-                      Transform(
-                        transform: Matrix4.translationValues(muchDelayedAnimation.value * width, 0, 0),
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
-                          child: SubjectCard(
-                            subjectname: "C Programming",
-                            chapter: "1-5",
-                            date: "13/12/2020",
-                            grade: "A+",
-                            mark: "85",
-                            time: "9.00Am-10AM",
+                      for (int i = 0; i < userProvider.examMarks.marks.length; i++)
+                        Transform(
+                          transform: Matrix4.translationValues(muchDelayedAnimation.value * width, 0, 0),
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 8.0),
+                            child: SubjectCard(
+                              subjectname: userProvider.examMarks.marks[i].sub,
+                              chapter: "1-5",
+                              date: userProvider.examMarks.marks[i].date,
+                              grade: userProvider.examMarks.marks[i].grade,
+                              mark: userProvider.examMarks.marks[i].mark,
+                              time: "9.00Am-10AM",
+                            ),
                           ),
                         ),
-                      ),
-                      Transform(
-                        transform: Matrix4.translationValues(muchDelayedAnimation.value * width, 0, 0),
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
-                          child: SubjectCard(
-                            subjectname: "Software Engg.",
-                            chapter: "1-5",
-                            date: "14/12/2020",
-                            grade: "A+",
-                            mark: "100",
-                            time: "9.00Am-10AM",
-                          ),
-                        ),
-                      ),
-                      Transform(
-                        transform: Matrix4.translationValues(muchDelayedAnimation.value * width, 0, 0),
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
-                          child: SubjectCard(
-                            subjectname: "Cloud Computing",
-                            chapter: "1-5",
-                            date: "14/12/2020",
-                            grade: "A+",
-                            mark: "100",
-                            time: "9.00Am-10AM",
-                          ),
-                        ),
-                      ),
-                      Transform(
-                        transform: Matrix4.translationValues(muchDelayedAnimation.value * width, 0, 0),
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
-                          child: SubjectCard(
-                            subjectname: "Distributed System",
-                            chapter: "1-5",
-                            date: "15/12/2020",
-                            grade: "A+",
-                            mark: "100",
-                            time: "9.00Am-10AM",
-                          ),
-                        ),
-                      ),
                       SizedBox(
                         height: height * 0.05,
                       ),
@@ -219,7 +147,7 @@ class _ExamResultState extends State<ExamResult> with SingleTickerProviderStateM
                               Transform(
                                 transform: Matrix4.translationValues(delayedAnimation.value * width, 0, 0),
                                 child: Text(
-                                  "475/500",
+                                  "${userProvider.examMarks.overall}/600",
                                   style: TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.bold,
@@ -249,7 +177,7 @@ class _ExamResultState extends State<ExamResult> with SingleTickerProviderStateM
                               Transform(
                                 transform: Matrix4.translationValues(delayedAnimation.value * width, 0, 0),
                                 child: Text(
-                                  "A +",
+                                  "${userProvider.examMarks.og}",
                                   style: TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.bold,
@@ -290,68 +218,68 @@ class _ExamResultState extends State<ExamResult> with SingleTickerProviderStateM
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 18, 0, 5),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Transform(
-                              transform: Matrix4.translationValues(muchDelayedAnimation.value * width, 0, 0),
-                              child: Bouncing(
-                                onPress: () {},
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      color: Colors.blue,
-                                      borderRadius: BorderRadius.circular(3),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black26,
-                                        ),
-                                      ]),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      "Save",
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Transform(
-                              transform: Matrix4.translationValues(delayedAnimation.value * width, 0, 0),
-                              child: Bouncing(
-                                onPress: () {},
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      color: Colors.blue,
-                                      borderRadius: BorderRadius.circular(3),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black26,
-                                        ),
-                                      ]),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      "Share",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                      // Padding(
+                      //   padding: const EdgeInsets.fromLTRB(0, 18, 0, 5),
+                      //   child: Row(
+                      //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      //     children: [
+                      //       Transform(
+                      //         transform: Matrix4.translationValues(muchDelayedAnimation.value * width, 0, 0),
+                      //         child: Bouncing(
+                      //           onPress: () {},
+                      //           child: Container(
+                      //             decoration: BoxDecoration(
+                      //                 color: Colors.blue,
+                      //                 borderRadius: BorderRadius.circular(3),
+                      //                 boxShadow: [
+                      //                   BoxShadow(
+                      //                     color: Colors.black26,
+                      //                   ),
+                      //                 ]),
+                      //             child: Padding(
+                      //               padding: const EdgeInsets.all(8.0),
+                      //               child: Text(
+                      //                 "Save",
+                      //                 style: TextStyle(
+                      //                   fontSize: 15,
+                      //                   color: Colors.white,
+                      //                   fontWeight: FontWeight.bold,
+                      //                 ),
+                      //               ),
+                      //             ),
+                      //           ),
+                      //         ),
+                      //       ),
+                      //       Transform(
+                      //         transform: Matrix4.translationValues(delayedAnimation.value * width, 0, 0),
+                      //         child: Bouncing(
+                      //           onPress: () {},
+                      //           child: Container(
+                      //             decoration: BoxDecoration(
+                      //                 color: Colors.blue,
+                      //                 borderRadius: BorderRadius.circular(3),
+                      //                 boxShadow: [
+                      //                   BoxShadow(
+                      //                     color: Colors.black26,
+                      //                   ),
+                      //                 ]),
+                      //             child: Padding(
+                      //               padding: const EdgeInsets.all(8.0),
+                      //               child: Text(
+                      //                 "Share",
+                      //                 style: TextStyle(
+                      //                   color: Colors.white,
+                      //                   fontSize: 15,
+                      //                   fontWeight: FontWeight.bold,
+                      //                 ),
+                      //               ),
+                      //             ),
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
                       SizedBox(
                         height: height * 0.20,
                       ),

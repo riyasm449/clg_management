@@ -1,5 +1,8 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:school_management/providers/user.dart';
 
 import 'Screens/SpleashScreen.dart';
 
@@ -8,22 +11,27 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  void initState() {
+  void initState() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp();
     SystemChrome.setEnabledSystemUIOverlays([]);
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Chettinad',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.green,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => UserProvider()),
+      ],
+      child: MaterialApp(
+        title: 'Chettinad',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.green,
+        ),
+        home: SpleashScreen(),
+        // home: FeesPage(),
       ),
-      home: SpleashScreen(),
-      // home: FeesPage(),
     );
   }
 }

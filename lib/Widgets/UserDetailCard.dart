@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:school_management/providers/user.dart';
 
 class UserDetailCard extends StatefulWidget {
   @override
@@ -8,7 +10,7 @@ class UserDetailCard extends StatefulWidget {
 class _UserDetailCardState extends State<UserDetailCard> with SingleTickerProviderStateMixin {
   Animation animation, delayedAnimation, muchDelayedAnimation, LeftCurve;
   AnimationController animationController;
-
+  UserProvider userProvider;
   @override
   void initState() {
     // TODO: implement initState
@@ -33,6 +35,7 @@ class _UserDetailCardState extends State<UserDetailCard> with SingleTickerProvid
   }
 
   Widget build(BuildContext context) {
+    userProvider = Provider.of<UserProvider>(context);
     animationController.forward();
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
@@ -85,7 +88,7 @@ class _UserDetailCardState extends State<UserDetailCard> with SingleTickerProvid
                                         borderRadius: BorderRadius.circular(10),
                                       ),
                                       child: Text(
-                                        "18CS008",
+                                        " ${userProvider.user.id}",
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 13,
@@ -97,7 +100,7 @@ class _UserDetailCardState extends State<UserDetailCard> with SingleTickerProvid
                                   Padding(
                                     padding: const EdgeInsets.only(top: 10.0),
                                     child: Text(
-                                      "Harshini ",
+                                      userProvider.user.name,
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 21,
@@ -111,7 +114,7 @@ class _UserDetailCardState extends State<UserDetailCard> with SingleTickerProvid
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                          "Year: 04",
+                                          "Year: ${userProvider.user.year}",
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             color: Colors.white,
@@ -121,7 +124,7 @@ class _UserDetailCardState extends State<UserDetailCard> with SingleTickerProvid
                                           width: 50,
                                         ),
                                         Text(
-                                          "Dept: CSE",
+                                          "Dept: ${userProvider.user.dept}",
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             color: Colors.white,

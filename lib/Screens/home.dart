@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:school_management/Screens/Exam/Exam_Rseult.dart';
+import 'package:school_management/Screens/timetable/timetable.dart';
 import 'package:school_management/Widgets/AppBar.dart';
 import 'package:school_management/Widgets/BouncingButton.dart';
 import 'package:school_management/Widgets/DashboardCards.dart';
@@ -90,7 +91,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (BuildContext context) => Attendance(),
+                                    builder: (BuildContext context) => AttendancePage(),
                                   ));
                             },
                             child: DashboardCard(
@@ -134,7 +135,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                   ));
                             },
                             child: DashboardCard(
-                              name: "Exam",
+                              name: "Result",
                               imgpath: "exam.png",
                             ),
                           ),
@@ -142,7 +143,13 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                         Transform(
                           transform: Matrix4.translationValues(delayedAnimation.value * width, 0, 0),
                           child: Bouncing(
-                            onPress: () {},
+                            onPress: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (BuildContext context) => TimeTablePage(),
+                                  ));
+                            },
                             child: DashboardCard(
                               name: "TimeTable",
                               imgpath: "calendar.png",
